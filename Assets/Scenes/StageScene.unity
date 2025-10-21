@@ -1949,6 +1949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bom: {fileID: 490281136}
   GM: {fileID: 149419051}
+  bomUI: {fileID: 939627692158990769, guid: 6f8d6576257375b46b3f4a12b52d2183, type: 3}
   bomText: {fileID: 1163804208}
   Invincible: 1
 --- !u!1 &1770873201
@@ -2072,7 +2073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1824548286
 MonoBehaviour:
   m_ObjectHideFlags: 0

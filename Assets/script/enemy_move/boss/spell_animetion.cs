@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class spell_animetion : MonoBehaviour
 {
-    Vector2 goalPos = new Vector2(113, -113), startPos = new Vector2(-118, -50);//ƒXƒ^[ƒg‚ÆƒS[ƒ‹‚ÌÀ•W
+    Vector2 goalPos = new Vector2(113, -113), startPos = new Vector2(-118, -50);//ï¿½Xï¿½^ï¿½[ï¿½gï¿½ÆƒSï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½W
 
     [SerializeField]float moveSpeed = 0.1f , alphaSpeed = 0.001f;
 
@@ -16,12 +16,12 @@ public class spell_animetion : MonoBehaviour
     public bool finish = false;
     void Start()
     {
-        rectTransform = gameObject.GetComponent<RectTransform>();//UIÀ•W‚ğæ“¾
+        rectTransform = gameObject.GetComponent<RectTransform>();//UIï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½æ“¾
         image = gameObject.GetComponent<Image>();
-        color = image.color;//F‚ğæ“¾
+        color = image.color;//ï¿½Fï¿½ï¿½ï¿½æ“¾
 
         color.a = 0;
-        image.color = color;//‚±‚±‚ÅF‚ª”½‰f‚³‚ê‚é
+        image.color = color;//ï¿½ï¿½ï¿½ï¿½ï¿½ÅFï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½
 
         rectTransform.anchoredPosition = startPos;
 
@@ -33,11 +33,11 @@ public class spell_animetion : MonoBehaviour
 
         while (rectTransform.anchoredPosition != goalPos)
         {
-            color.a +=alphaSpeed ;//1•b‚Å•s“§–¾“x100“
+            color.a +=alphaSpeed ;//1ï¿½bï¿½Å•sï¿½ï¿½ï¿½ï¿½ï¿½x100ï¿½ï¿½
             image.color = color;
 
-            rectTransform.anchoredPosition += Vector * moveSpeed;//ˆÚ“®
-            if(rectTransform.anchoredPosition.x > goalPos.x)rectTransform.anchoredPosition = goalPos;//’Ê‚è‰ß‚¬‚½‚ç‹¸³
+            rectTransform.anchoredPosition += Vector * moveSpeed;//ï¿½Ú“ï¿½
+            if(rectTransform.anchoredPosition.x > goalPos.x)rectTransform.anchoredPosition = goalPos;//ï¿½Ê‚ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ç‹¸ï¿½ï¿½
             yield return null;
         }
 
@@ -47,9 +47,9 @@ public class spell_animetion : MonoBehaviour
 
         Vector3 addScale = new Vector3(0.01f,0.01f,0);
         
-        while (image.color.a >= 0)//“§–¾‚É‚È‚é‚Ü‚Å
+        while (image.color.a >= 0)//ï¿½ï¿½ï¿½ï¿½ï¿½É‚È‚ï¿½Ü‚ï¿½
         {
-            color.a -= alphaSpeed*2;//0.5•b‚Å•s“§–¾“x0“
+            color.a -= alphaSpeed*2;//0.5ï¿½bï¿½Å•sï¿½ï¿½ï¿½ï¿½ï¿½x0ï¿½ï¿½
             image.color = color;
 
             rectTransform.localScale += addScale;
