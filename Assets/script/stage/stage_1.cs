@@ -19,13 +19,30 @@ public class stage_1 : MonoBehaviour
     [SerializeField] GameObject bomBody;
     List<GameObject> keyEnemies = new List<GameObject>();//ì|Ç≥Ç»Ç¢Ç∆êÊÇ…êiÇﬂÇ»Ç¢
 
+    public AudioClip clip;
+    AudioSource audio_s;
+
     void Start()
     {
+        audio_s = GetComponent<AudioSource>();
+        
         StartCoroutine(game());
+    }
+    void Update()
+    {
+        if (audio_s.isPlaying == false)
+        {
+            audio_s.Stop();
+            audio_s.clip = clip;
+            audio_s.Play();
+            audio_s.loop = true;
+        }
+        
     }
     IEnumerator game()
     {
         yield return new WaitForSeconds(1);
+        
         yield return gameStart();
         yield return new WaitForSeconds(2); 
         yield return StartCoroutine(phase_1());
@@ -146,8 +163,14 @@ public class stage_1 : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(3);
-
+        while(audio_s.volume != 0)
+        {
+            audio_s.volume -= 0.001f;
+            yield return null;
+        }
+        audio_s.Stop();
         Instantiate(boss, boss_Pos, Quaternion.identity);
+
     }
     
 

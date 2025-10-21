@@ -14,8 +14,10 @@ public class bom_animation : MonoBehaviour
     private float angle = 0f;
     private float radius = 0f;
     float add;
+    Vector2 startPos;
     void Start()
     {
+        startPos = transform.position;
         add = transform.rotation.eulerAngles.z;
         //speed = UnityEngine.Random.Range(0.1f, 1);
     }
@@ -28,8 +30,8 @@ public class bom_animation : MonoBehaviour
         radius += radiusGrowth * Time.deltaTime;
 
         // 座標計算（内側から外側へ）
-        float x = transform.position.x + Mathf.Cos(angle+add) * radius;
-        float y = transform.position.y + Mathf.Sin(angle+add) * radius;
+        float x = startPos.x + Mathf.Cos(angle+add) * radius;
+        float y = startPos.y + Mathf.Sin(angle+add) * radius;
 
         if (useXZPlane)
         {
