@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class player_bom : MonoBehaviour
 {
-    public GameObject bom , GM;
+    public GameObject bom , GM , bomUI;
     SpriteRenderer sr;
     Resurrection res;
     [SerializeField] Text bomText;
@@ -24,17 +24,18 @@ public class player_bom : MonoBehaviour
     }
     IEnumerator bom_animetion()
     {
-        _do = true;//˜AË–h~—p
+        _do = true;//ï¿½Aï¿½Ë–hï¿½~ï¿½p
 
         res._bom--;
-        res.textChange(" Bom   : ", res._bom, bomText);//UI‚ÌXV‚Íresurection‚ÌŠÖ”‚ğg—p
+        res.textChange(" Bom   : ", res._bom, bomText);//UIï¿½ÌXï¿½Vï¿½ï¿½resurectionï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½gï¿½p
 
-        res = GM.GetComponent<Resurrection>();//resurection‚ÌXV
+        res = GM.GetComponent<Resurrection>();//resurectionï¿½ÌXï¿½V
 
         bom.SetActive(true);
         Invincible = true;
 
-        yield return new WaitForSeconds(3);//ƒ{ƒ€‘±ŠÔ
+        Instantiate(bomUI, gameObject.transform.position,Quaternion.identity);
+        yield return new WaitForSeconds(3);//ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         bom.SetActive(false);
         Invincible = false;
