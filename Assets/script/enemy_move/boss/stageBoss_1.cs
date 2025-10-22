@@ -33,7 +33,7 @@ public class stageBoss_1 : MonoBehaviour
 
     AudioSource _audio;
     soundMaster sm;
-    public AudioClip audioClip , spellSe , damageSe ,beepSe;
+    public AudioClip audioClip , spellSe , damageSe ,spellEndSe;
 
     void Start()
     {
@@ -108,7 +108,7 @@ public class stageBoss_1 : MonoBehaviour
     {
         if (collision.CompareTag("player_bullet"))
         {
-            sm.PlaySE(damageSe);
+            //sm.PlaySE(damageSe);
             Destroy(collision.gameObject);
             //score �̑���
             _text = score.GetComponent<Text>();
@@ -128,6 +128,7 @@ public class stageBoss_1 : MonoBehaviour
             {
                 bom.SetActive(true);//�S�G�e������
                 Destroy(bg);
+                sm.PlaySE(spellEndSe);
                 StopAllCoroutines();//�R���[�`����S�Ē�~
 
                 isPhase_1 = false;//�A���Ăт�h�~
@@ -326,7 +327,7 @@ public class stageBoss_1 : MonoBehaviour
             Instantiate(eim_bullet, transform.position, quaternion.identity);
             Instantiate(eim_bullet, transform.position, quaternion.identity).GetComponent<big_eim>().minus = true;
 
-            sm.PlaySE(beepSe);
+            //sm.PlaySE(beepSe);
             yield return new WaitForSeconds(4);
 
             Instantiate(eim_bullet_2, transform.position, quaternion.identity);

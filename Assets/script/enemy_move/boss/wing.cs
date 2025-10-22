@@ -4,16 +4,8 @@ using UnityEngine;
 
 public class wing : MonoBehaviour
 {
-    GameObject parentObj;
-    // Start is called before the first frame update
-    void Start()
-    {
-        parentObj = transform.parent.gameObject;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (parentObj == null) Destroy(gameObject);
+        if (transform.parent.gameObject == null) Destroy(gameObject);
     }
 }

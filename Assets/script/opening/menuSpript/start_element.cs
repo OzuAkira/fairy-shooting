@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class start_element : Abs_menuElement
 {
+    AudioSource ads;
+    public AudioClip ac;
+    void Start()
+    {
+        ads = GetComponent<AudioSource>();
+    }
     public override void select()
     {
         StartCoroutine("LoadScene");
@@ -12,9 +18,13 @@ public class start_element : Abs_menuElement
 
     IEnumerator LoadScene()
     {
+        ads.PlayOneShot(ac);
+
+        yield return new WaitForSeconds(1);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("StageScene");
 
-        // ƒ[ƒh‚ª‚Ü‚¾‚È‚çŸ‚ÌƒtƒŒ[ƒ€‚Ö
+        // ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½Ü‚ï¿½ï¿½È‚çŸï¿½Ìƒtï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
         while (!asyncLoad.isDone)
         {
             yield return null;

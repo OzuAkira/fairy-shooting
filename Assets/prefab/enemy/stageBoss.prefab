@@ -231,7 +231,7 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: dc276823361fe644c8af60071c4e651b, type: 3}
   spellSe: {fileID: 8300000, guid: d33b9f220ddf0cb4d94b4ac40ad49c9a, type: 3}
   damageSe: {fileID: 8300000, guid: 24f1591a5dbaab74495fcb42329e656b, type: 3}
-  beepSe: {fileID: 8300000, guid: fb98ba411c5796646a1aa51dbb5f5ff5, type: 3}
+  spellEndSe: {fileID: 8300000, guid: 0986e89c574f1e847928c732ca1c76f5, type: 3}
   nextHP: []
   Raw_eimPos:
   - {x: 2.33, y: 0.77}

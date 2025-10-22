@@ -752,63 +752,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &489770363
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.088772535
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.4094257
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442697254049757302, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617815830323435980, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
-      propertyPath: m_Name
-      value: stageBoss
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: be7fedc9267c9df4bb9fc2e8957be43d, type: 3}
 --- !u!1 &490281136 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2110147058083152517, guid: 75f55e7c33c18a64aadf23c42ed05b1b, type: 3}
@@ -2230,6 +2173,7 @@ MonoBehaviour:
   bom: {fileID: 490281136}
   GM: {fileID: 149419051}
   bomUI: {fileID: 939627692158990769, guid: 6f8d6576257375b46b3f4a12b52d2183, type: 3}
+  ac: {fileID: 8300000, guid: bc578258aff46944f95a69a0d231cffe, type: 3}
   bomText: {fileID: 1163804208}
   Invincible: 1
 --- !u!1 &1770873201
@@ -2354,7 +2298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1824548286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2797,4 +2741,3 @@ SceneRoots:
   - {fileID: 1824548287}
   - {fileID: 1611402054887308947}
   - {fileID: 984119867}
-  - {fileID: 489770363}
