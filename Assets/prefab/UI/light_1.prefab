@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5197a2758052c1449c5302f7918b45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  radiusGrowth: 0.2
+  speed: 2
+  radiusGrowth: 2.5
   heightGrowth: 0
   useXZPlane: 0

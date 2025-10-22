@@ -52,15 +52,15 @@ public class player_shot : MonoBehaviour
             {
                 if(my_power > power_level*2)
                 {
-                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0, 0, 1));
+                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0, 0, 5));
                     Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.identity);
-                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0, 0, -1));
+                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0, 0, -5));
                 }
                 
                 else if(my_power > power_level)
                 {
-                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0,0,1));
-                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0, 0, -1));
+                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0,0,2));
+                    Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.Euler(0, 0, -2));
                 }
 
                 else Instantiate(player_bullet, gameObject.transform.position + new Vector3(0, instant_Ypos), Quaternion.identity);//íeÇê∂ê¨
@@ -69,11 +69,6 @@ public class player_shot : MonoBehaviour
 
 
             }
-        }
-        else if(_shotAction == null)
-        {
-            Debug.Log("_shotAction Ç™NullÇ≈Ç∑ÅI");
-            return;
         }
     }
     
