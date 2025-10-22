@@ -30,8 +30,13 @@ public class stageBoss_1 : MonoBehaviour
 
     System.Random rnd;
 
+    AudioSource audio;
+    public AudioClip audioClip;
+
     void Start()
     {
+        audio = GetComponent<AudioSource>();
+
         bc = GetComponent<BoxCollider2D>();
         bc.enabled = false;//Å‰‚Í–³“G
 
@@ -54,13 +59,14 @@ public class stageBoss_1 : MonoBehaviour
         canvas = GameObject.Find("Canvas_2");
         score = canvas.transform.Find("score").gameObject;
 
-
+        
 
         StartCoroutine(buttleStart());//“oê•–³“G‰ğœ
     }
 
     bool stopd = false;
 
+    
     private void Update()
     {
         if(slider == null)return;
@@ -79,6 +85,12 @@ public class stageBoss_1 : MonoBehaviour
                 StartCoroutine(spell_2());
             }
 
+        }
+        if (audio.isPlaying == false)
+        {
+            audio.clip = audioClip;
+            audio.Play();
+            audio.loop = true;
         }
     }
 
@@ -165,6 +177,7 @@ public class stageBoss_1 : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2);
+
 
         _hp = Instantiate(HP_slider);//HPƒo[‚ğ•\¦
 

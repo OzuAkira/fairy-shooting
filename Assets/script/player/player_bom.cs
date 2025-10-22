@@ -45,7 +45,7 @@ public class player_bom : MonoBehaviour
     private void Update()
     {
         if(Invincible) sr.color = Color.red;
-        else sr.color = Color.white;
+        else sr.color = new Color(134f/255f,144f / 255f, 255f / 255f);
     }
 
 }
