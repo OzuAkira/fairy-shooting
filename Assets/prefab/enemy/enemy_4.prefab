@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a65f51f0b387245a89c1a5903182dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ac: {fileID: 8300000, guid: fd5b6a9a248805a42bbf29df9bc2d059, type: 3}
   HP: 10
   hit_point: 1
   kill_point: 10

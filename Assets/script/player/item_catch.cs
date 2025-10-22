@@ -15,6 +15,8 @@ public class item_catch : MonoBehaviour
     public int now_score;
 
     Resurrection res;
+    AudioSource ads;
+    [SerializeField] AudioClip[] ac;
     [SerializeField]GameObject GM;
     [SerializeField] Text bomText;
     void Start()
@@ -27,6 +29,7 @@ public class item_catch : MonoBehaviour
         power = canvas.transform.Find("power").gameObject;
 
         res = GM.GetComponent<Resurrection>();
+        ads = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +37,9 @@ public class item_catch : MonoBehaviour
         if (collision.gameObject.CompareTag("item"))
         {
             item catch_item = collision.gameObject.GetComponent<item>();
+
+            ads.PlayOneShot(ac[0]);
+
             if (catch_item.isPoint)
             {
                 score_text = score.GetComponent<Text>();
@@ -49,7 +55,7 @@ public class item_catch : MonoBehaviour
 
                 powre_text.text = "Power : " + p_shot.my_power.ToString();
 
-                //score‚àã‚°‚é
+                //scoreï¿½ï¿½ï¿½ã‚°ï¿½ï¿½
                 score_text = score.GetComponent<Text>();
                 now_score = int.Parse(score_text.text);
 
@@ -61,12 +67,12 @@ public class item_catch : MonoBehaviour
 
         if (collision.gameObject.CompareTag("bom"))
         {
-            res = GM.GetComponent<Resurrection>();//resurection‚ÌXV
-            Debug.Log(res._bom);
+            res = GM.GetComponent<Resurrection>();//resurectionï¿½ÌXï¿½V
+            ads.PlayOneShot(ac[1]);
 
 
             res._bom++;
-            res.textChange(" Bom   : ", res._bom, bomText);//UI‚ÌXV‚Íresurection‚ÌŠÖ”‚ğg—p
+            res.textChange(" Bom   : ", res._bom, bomText);//UIï¿½ÌXï¿½Vï¿½ï¿½resurectionï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½gï¿½p
 
 
             Destroy(collision.gameObject);
