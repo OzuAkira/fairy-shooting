@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class stageBoss_1 : MonoBehaviour
 
-//ƒ{ƒX‚Í‘S‚Ä‚Ìˆ—‚ğ‚±‚ÌƒXƒNƒŠƒvƒg‚ÅÀs‚·‚é
-//‚½‚¾‚µAUI‚Íœ‚­
+//ï¿½{ï¿½Xï¿½Í‘Sï¿½Ä‚Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½Åï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AUIï¿½Íï¿½ï¿½ï¿½
 {
     [SerializeField] float start_y_Pos = 3 , moveSpeed;
     [SerializeField] GameObject HP_slider , spell_bg;
@@ -16,7 +17,7 @@ public class stageBoss_1 : MonoBehaviour
     [SerializeField] GameObject[] phase_1_bullet;
 
 
-    GameObject playerObj , bom , canvas , score , resObj ,bg;
+    GameObject playerObj , bom , canvas , score , resObj ,bg ,gM;
 
     Text _text;
     public int hit_point = 1, kill_point = 10, now_score;
@@ -30,19 +31,22 @@ public class stageBoss_1 : MonoBehaviour
 
     System.Random rnd;
 
-    AudioSource audio;
-    public AudioClip audioClip;
+    AudioSource _audio;
+    soundMaster sm;
+    public AudioClip audioClip , spellSe , damageSe ,beepSe;
 
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        _audio = GetComponent<AudioSource>();
+        gM = GameObject.Find("GameMaster");
+        sm = gM.GetComponent<soundMaster>();
 
         bc = GetComponent<BoxCollider2D>();
-        bc.enabled = false;//Å‰‚Í–³“G
+        bc.enabled = false;//ï¿½Åï¿½ï¿½Í–ï¿½ï¿½G
 
         rb = GetComponent<Rigidbody2D>();
 
-        rnd = new System.Random();      // RandomƒIƒuƒWƒFƒNƒg‚ğì¬
+        rnd = new System.Random();      // Randomï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ì¬
 
         playerObj = GameObject.Find("player");
         
@@ -55,24 +59,24 @@ public class stageBoss_1 : MonoBehaviour
         bom = Instantiate(bom_obj);
         bom.SetActive(false);
 
-        //scoreŠÖŒW
+        //scoreï¿½ÖŒW
         canvas = GameObject.Find("Canvas_2");
         score = canvas.transform.Find("score").gameObject;
 
         
 
-        StartCoroutine(buttleStart());//“oê•–³“G‰ğœ
+        StartCoroutine(buttleStart());//ï¿½oï¿½ê•ï¿½ï¿½ï¿½Gï¿½ï¿½ï¿½ï¿½
     }
 
-    bool stopd = false;
+    bool stopd = false , isLoop = false;
 
     
     private void Update()
     {
         if(slider == null)return;
-        if(slider.value <= (slider.maxValue / 10) * 3)//Œ»HP‚ªc‚è3Š„‚É‚È‚Á‚½‚ç
+        if(slider.value <= (slider.maxValue / 10) * 3)//ï¿½ï¿½HPï¿½ï¿½ï¿½cï¿½ï¿½3ï¿½ï¿½ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            if (stopd == false@&& isPhase_1)
+            if (stopd == false && isPhase_1)
             { 
                 StopAllCoroutines();
                 stopd = true;
@@ -86,26 +90,27 @@ public class stageBoss_1 : MonoBehaviour
             }
 
         }
-        if (audio.isPlaying == false)
+        if (_audio.isPlaying == false && isLoop == false)
         {
-            audio.clip = audioClip;
-            audio.Play();
-            audio.loop = true;
+            isLoop = true;
+            _audio.clip = audioClip;
+            _audio.Play();
+            _audio.loop = true;
         }
     }
 
-    //”í’eˆ—
+    //ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½
 
-    //‚±‚±‚Ì”’l‚Í—vŒŸ“¢
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½lï¿½Í—vï¿½ï¿½ï¿½ï¿½
     float spell_damage = 0.5f;
     public List<GameObject> nextHP = new List<GameObject>();
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("player_bullet"))
         {
-            
+            sm.PlaySE(damageSe);
             Destroy(collision.gameObject);
-            //score ‚Ì‘‚©
+            //score ï¿½Ì‘ï¿½ï¿½ï¿½
             _text = score.GetComponent<Text>();
             now_score = int.Parse(_text.text);
 
@@ -113,7 +118,7 @@ public class stageBoss_1 : MonoBehaviour
             _text.text = now_score.ToString();
 
             if (isSpell) HP -= spell_damage;
-            else HP--;//‚±‚±‚Í•Ï‚¦‚È‚¢
+            else HP--;//ï¿½ï¿½ï¿½ï¿½ï¿½Í•Ï‚ï¿½ï¿½È‚ï¿½
 
 
 
@@ -121,11 +126,11 @@ public class stageBoss_1 : MonoBehaviour
             else if (isPhase_2) slider.value = HP;
             if (slider.value <= 0 && isPhase_1)
             {
-                bom.SetActive(true);//‘S“G’e‚ğÁ‚·
+                bom.SetActive(true);//ï¿½Sï¿½Gï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 Destroy(bg);
-                StopAllCoroutines();//ƒRƒ‹[ƒ`ƒ“‚ğ‘S‚Ä’â~
+                StopAllCoroutines();//ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½Sï¿½Ä’ï¿½~
 
-                isPhase_1 = false;//˜A‘±ŒÄ‚Ñ‚ğ–h~
+                isPhase_1 = false;//ï¿½Aï¿½ï¿½ï¿½Ä‚Ñ‚ï¿½hï¿½~
                 
                 slider.value = slider.maxValue;
 
@@ -134,24 +139,24 @@ public class stageBoss_1 : MonoBehaviour
 
                 Image HP_0_image = nextHP[0].GetComponent<Image>();
                 UnityEngine.Color c = HP_0_image.color;
-                c = new Color(0.1509f, 0.1309f, 0.1217f);//F‚ğw’è
-                HP_0_image.color = c;//T‚¦‚ÌHPƒo[‚ğ1‚Â•‚É‚·‚é
+                c = new Color(0.1509f, 0.1309f, 0.1217f);//ï¿½Fï¿½ï¿½ï¿½wï¿½ï¿½
+                HP_0_image.color = c;//ï¿½Tï¿½ï¿½ï¿½ï¿½HPï¿½oï¿½[ï¿½ï¿½1ï¿½Âï¿½ï¿½É‚ï¿½ï¿½ï¿½
 
-                bc.enabled = false;//“–‚½‚è”»’è‚ğÁ‚µ‚½
+                bc.enabled = false;//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
                 StartCoroutine(phase_2());
             }
-            //‚±‚±‚Éƒ{ƒX‚ªŒ‚”j‚³‚ê‚½‚Ìˆ—‚ğ‘‚­
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Éƒ{ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             else if(slider.value <= 0 && isPhase_2)
             {
-                bom.SetActive(true);//‘S“G’e‚ğÁ‚·
+                bom.SetActive(true);//ï¿½Sï¿½Gï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 Destroy (bg);
                 player_bom pb = playerObj.GetComponent<player_bom>();
                 pb.Invincible = true;
 
-                StopAllCoroutines();//ƒRƒ‹[ƒ`ƒ“‚ğ‘S‚Ä’â~
+                StopAllCoroutines();//ï¿½Rï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½ï¿½ï¿½Sï¿½Ä’ï¿½~
 
-                isPhase_2 = false;//˜A‘±ŒÄ‚Ñ‚ğ–h~
+                isPhase_2 = false;//ï¿½Aï¿½ï¿½ï¿½Ä‚Ñ‚ï¿½hï¿½~
                 //stopd = false;
                 resObj = GameObject.Find("GameMaster");
                 StartCoroutine(resObj.GetComponent<Resurrection>().end(true));
@@ -167,7 +172,7 @@ public class stageBoss_1 : MonoBehaviour
     GameObject _hp;
     IEnumerator buttleStart()
     {
-        //‰º‚É~‚è‚Ä‚­‚é‚â‚Â
+        //ï¿½ï¿½ï¿½É~ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
         while (gameObject.transform.position.y > start_y_Pos)
         {
             Vector2 pos = gameObject.transform.position - new Vector3(0,moveSpeed,0);
@@ -179,21 +184,21 @@ public class stageBoss_1 : MonoBehaviour
         yield return new WaitForSeconds(2);
 
 
-        _hp = Instantiate(HP_slider);//HPƒo[‚ğ•\¦
+        _hp = Instantiate(HP_slider);//HPï¿½oï¿½[ï¿½ï¿½\ï¿½ï¿½
 
         int nextHP_count = 2;
-        for (int i = 1; i <= nextHP_count; i++)//Ÿ‚ÌHPƒo[‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
+        for (int i = 1; i <= nextHP_count; i++)//ï¿½ï¿½ï¿½ï¿½HPï¿½oï¿½[ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½æ“¾
         {
             nextHP.Add(_hp.transform.GetChild(i).gameObject);
         }
-        //«‚ ‚Æ‚ÅÁ‚·
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚Åï¿½ï¿½ï¿½
         //nextHP[0].SetActive(false);
 
-        slider = _hp.transform.Find("Slider").GetComponent<Slider>();//slider‚ğæ“¾
+        slider = _hp.transform.Find("Slider").GetComponent<Slider>();//sliderï¿½ï¿½ï¿½æ“¾
         slider.maxValue = HP/2;
-        slider.value = slider.maxValue;//HP‚ğ‰Šú‰»
+        slider.value = slider.maxValue;//HPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        bc.enabled = true;//“–‚½‚è”»’è‚ğture
+        bc.enabled = true;//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½ture
 
 
         isPhase_1 = true;
@@ -221,14 +226,14 @@ public class stageBoss_1 : MonoBehaviour
             Vector2 pos = new Vector3(xPos*2, gameObject.transform.position.y, 0);
             rb.MovePosition (pos);
 
-            frame_1++;//ˆÚ“®Œã‚ÉŒ‚‚Âˆ—
+            frame_1++;//ï¿½Ú“ï¿½ï¿½ï¿½ÉŒï¿½ï¿½Âï¿½ï¿½ï¿½
             if (frame_1 == shotFrame)yield return StartCoroutine(circleShot());
             if(frame_1 == shotFrame*2) StartCoroutine(circleShot());
             if(frame_1 == shotFrame * 3)yield return StartCoroutine(circleShot());
             if (frame_1 == shotFrame * 4)
             {
                 StartCoroutine(circleShot());
-                frame_1 = 0;//Œ³‚É–ß‚·ix=0j
+                frame_1 = 0;//ï¿½ï¿½ï¿½É–ß‚ï¿½ï¿½ix=0ï¿½j
             }
 
             yield return null;  
@@ -239,14 +244,14 @@ public class stageBoss_1 : MonoBehaviour
     {
         while (true)
         {
-            List<Vector2> clonePos = new List<Vector2>(Raw_eimPos);//ƒRƒs[
+            List<Vector2> clonePos = new List<Vector2>(Raw_eimPos);//ï¿½Rï¿½sï¿½[
 
             int rand_n = rnd.Next(clonePos.Count/2, clonePos.Count);
             for (int i = 0; i < rand_n; i++)
             {
-                int rand_index = rnd.Next(0, clonePos.Count);//ƒCƒ“ƒfƒbƒNƒX‚ğƒ‰ƒ“ƒ_ƒ€‚É¶¬
-                Instantiate(phase_1_bullet[1], clonePos[rand_index], Quaternion.identity);//ƒ‰ƒ“ƒ_ƒ€‚ÈÀ•W‚É©‹@‘_‚¢’e‚ğ¶¬
-                clonePos.RemoveAt(rand_index);//g—p‚µ‚½ƒCƒ“ƒfƒbƒNƒX‚ğíœ
+                int rand_index = rnd.Next(0, clonePos.Count);//ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Éï¿½ï¿½ï¿½
+                Instantiate(phase_1_bullet[1], clonePos[rand_index], Quaternion.identity);//ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Èï¿½ï¿½Wï¿½Éï¿½ï¿½@ï¿½_ï¿½ï¿½ï¿½eï¿½ğ¶ï¿½
+                clonePos.RemoveAt(rand_index);//ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½ï¿½ï¿½íœ
                 yield return new WaitForSeconds(1);
             }
 
@@ -262,7 +267,7 @@ public class stageBoss_1 : MonoBehaviour
 
         float ms_1 = 0.05f, ms_2 = 0.1f;
 
-        float _ = rnd.Next(0, 2);//‘æˆêˆø”ˆÈãA‘æ“ñˆø”–¢–
+        float _ = rnd.Next(0, 2);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         if (_ == 0)
         {
@@ -309,10 +314,10 @@ public class stageBoss_1 : MonoBehaviour
 
     IEnumerator spell_1()
     {
-        yield return StartCoroutine(spell_Anime(1));//ƒƒ\ƒbƒh‚Ì–¼‘O‚Éispell_1j‚Ì1‚É‚ ‚í‚¹‚é
-        //–{—ˆ‚Í0‚Ì•û‚ªD‚Ü‚µ‚¢
+        yield return StartCoroutine(spell_Anime(1));//ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Ì–ï¿½ï¿½Oï¿½Éispell_1ï¿½jï¿½ï¿½1ï¿½É‚ï¿½ï¿½í‚¹ï¿½ï¿½
+        //ï¿½{ï¿½ï¿½ï¿½ï¿½0ï¿½Ì•ï¿½ï¿½ï¿½ï¿½Dï¿½Ü‚ï¿½ï¿½ï¿½
         
-        //‚±‚±‚©‚çƒXƒyƒ‹ƒJ[ƒh‚Ì’e–‹‚ğ‘‚­
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½yï¿½ï¿½ï¿½Jï¿½[ï¿½hï¿½Ì’eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         while (true)
         {
             Instantiate(wave_bullet, transform.position, quaternion.identity);
@@ -321,6 +326,7 @@ public class stageBoss_1 : MonoBehaviour
             Instantiate(eim_bullet, transform.position, quaternion.identity);
             Instantiate(eim_bullet, transform.position, quaternion.identity).GetComponent<big_eim>().minus = true;
 
+            sm.PlaySE(beepSe);
             yield return new WaitForSeconds(4);
 
             Instantiate(eim_bullet_2, transform.position, quaternion.identity);
@@ -333,29 +339,30 @@ public class stageBoss_1 : MonoBehaviour
     public GameObject bom_obj ;
     IEnumerator spell_Anime(int image_num)
     {
-        bc.enabled = false;//“–‚½‚è”»’è‚ğÁ‚·
+        bc.enabled = false;//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         isSpell = true;
 
+        sm.PlaySE(spellSe);
         bg = Instantiate(spell_bg, new Vector3(0, 0, 0), Quaternion.identity);
         
         yield return null;
         bom.SetActive(true);
 
-        Vector3 velocity = spell_myPos - gameObject.transform.position;//ƒxƒNƒgƒ‹‚ğŒvZ
+        Vector3 velocity = spell_myPos - gameObject.transform.position;//ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z
         bool right = false;
-        if (velocity.x > 0) right = true;//is•ûŒü‚ª‰EiX•ûŒü‚ÌƒxƒNƒgƒ‹‚ª³‚Ì’lj‚Ìê‡‚Ítrue
+        if (velocity.x > 0) right = true;//ï¿½iï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½iXï¿½ï¿½ï¿½ï¿½ï¿½Ìƒxï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’lï¿½jï¿½Ìê‡ï¿½ï¿½true
 
-        GameObject Animetion_obj = Instantiate(enemy_image[image_num]);//UIƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶iƒXƒyƒ‹ƒJ[ƒh–¼j
+        GameObject Animetion_obj = Instantiate(enemy_image[image_num]);//UIï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½iï¿½Xï¿½yï¿½ï¿½ï¿½Jï¿½[ï¿½hï¿½ï¿½ï¿½j
 
-        //’èˆÊ’u‚Ü‚ÅˆÚ“®
+        //ï¿½ï¿½Ê’uï¿½Ü‚ÅˆÚ“ï¿½
         while (gameObject.transform.position != spell_myPos)
         {
 
 
             Vector3 movePos = gameObject.transform.position + velocity * spell_1_moveSpeed;
 
-            if (right && movePos.x > 0) movePos = spell_myPos;//‹¸³
-            if (right == false && movePos.x < 0) movePos = spell_myPos;//‹¸³
+            if (right && movePos.x > 0) movePos = spell_myPos;//ï¿½ï¿½ï¿½ï¿½
+            if (right == false && movePos.x < 0) movePos = spell_myPos;//ï¿½ï¿½ï¿½ï¿½
 
             rb.MovePosition(movePos);
 
@@ -363,7 +370,7 @@ public class stageBoss_1 : MonoBehaviour
         }
 
         spell_animetion sa = Animetion_obj.transform.Find("enemy_image").gameObject.GetComponent<spell_animetion>();
-        //UIƒAƒjƒ[ƒVƒ‡ƒ“‚ªÄ¶‚³‚ê‚½‚ç’Eo
+        //UIï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Eï¿½o
         while (sa.finish == false)
         {
             sa = Animetion_obj.transform.GetChild(0).gameObject.GetComponent<spell_animetion>();
@@ -373,7 +380,7 @@ public class stageBoss_1 : MonoBehaviour
         Destroy(Animetion_obj);
         bom.SetActive(false);
 
-        bc.enabled = true;//“–‚½‚è”»’è‚ğ•œŠˆ
+        bc.enabled = true;//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ğ•œŠï¿½
 
     }
     public GameObject[] phase2_bullets;
@@ -381,7 +388,7 @@ public class stageBoss_1 : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
 
-        bc.enabled = true;//“–‚½‚è”»’è‚ğ‰ñ•œ
+        bc.enabled = true;//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½ï¿½ï¿½
 
         bom.SetActive(false);
         isPhase_2 = true;
@@ -455,7 +462,7 @@ public class stageBoss_1 : MonoBehaviour
                         case 6:
                             sr.color = Color.yellow
                                 ; break;
-                    }//F‚ğ•Ï‚¦‚é
+                    }//ï¿½Fï¿½ï¿½Ï‚ï¿½ï¿½ï¿½
                 }
             }
             yield return null;
@@ -477,8 +484,8 @@ public class stageBoss_1 : MonoBehaviour
             if (transform.position.x <= 2 && shoted == false)
             {
                 shoted = true;
-                Instantiate(phase2_bullets[2], gameObject.transform.position, Quaternion.identity);//©‹@‘_‚¢‚ÌŠgU’e
-                                                                                                   //g–‚‹½EX‚Ì’†ƒ{ƒX“|‚µ‚½’¼Œã‚É—d¸‚ªŒ‚‚Á‚Ä‚­‚éƒAƒŒ ‚ğˆê”­
+                Instantiate(phase2_bullets[2], gameObject.transform.position, Quaternion.identity);//ï¿½ï¿½ï¿½@ï¿½_ï¿½ï¿½ï¿½ÌŠgï¿½Uï¿½e
+                                                                                                   //ï¿½gï¿½ï¿½ï¿½ï¿½EXï¿½Ì’ï¿½ï¿½{ï¿½Xï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É—dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Aï¿½ï¿½ ï¿½ï¿½ï¿½ê”­
             }
             if (transform.position.x < 0) gameObject.transform.position = new Vector3(0, 3, 0);
             else sum_vect += add_i;
@@ -514,11 +521,11 @@ public class stageBoss_1 : MonoBehaviour
                 case 6:
                     sr.color = Color.yellow
                         ; break;
-            }//F‚ğ•Ï‚¦‚é
+            }//ï¿½Fï¿½ï¿½Ï‚ï¿½ï¿½ï¿½
 
-            yield return null; yield return null;//2frame‘Ò‚Â
+            yield return null; yield return null;//2frameï¿½Ò‚ï¿½
         }
-        StartCoroutine(phase_2());//ŒJ‚è•Ô‚µ
+        StartCoroutine(phase_2());//ï¿½Jï¿½ï¿½Ô‚ï¿½
     }
     [SerializeField] Vector2 wall_bullet_Pos1, wall_bullet_Pos2;
     IEnumerator spell_2()
@@ -536,7 +543,7 @@ public class stageBoss_1 : MonoBehaviour
                 i += add_i;
                 Instantiate(phase2_bullets[5], transform.position, Quaternion.Euler(0, 0, angle));
 
-                for (int t = 0; t < 10; t++)//10ƒtƒŒ[ƒ€‘Ò‹@
+                for (int t = 0; t < 10; t++)//10ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ò‹@
                     yield return null;
                 shotCount++;
             }
@@ -557,7 +564,7 @@ public class stageBoss_1 : MonoBehaviour
             {
                 Instantiate(phase2_bullets[4], wall_bullet_Pos1, Quaternion.identity);
                 Instantiate(phase2_bullets[4], wall_bullet_Pos2, Quaternion.Euler(0, 0, 180));
-                //ƒ}ƒCƒiƒXÀ•W‚ÉoŒ»‚³‚¹‚é
+                //ï¿½}ï¿½Cï¿½iï¿½Xï¿½ï¿½ï¿½Wï¿½Éoï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 Instantiate(phase2_bullets[4], -wall_bullet_Pos2, Quaternion.identity);
                 Instantiate(phase2_bullets[4], -wall_bullet_Pos1, Quaternion.Euler(0, 0, 180));
 

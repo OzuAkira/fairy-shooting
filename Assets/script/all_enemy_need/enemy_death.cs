@@ -7,6 +7,7 @@ public class enemy_death : MonoBehaviour
 {
     GameObject GM , score , canvas;
     Text _text;
+    public AudioClip ac;
     public int HP = 1, hit_point = 1,kill_point = 10,now_score;
     public bool hpStoper = false , random_switch = false , isDrop = false;
     public GameObject item_1,item_2;
@@ -20,9 +21,9 @@ public class enemy_death : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("player_bullet"))//player‚Ì’e‚É“–‚½‚Á‚½‚ç
+        if (collision.CompareTag("player_bullet"))//playerï¿½Ì’eï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            //ƒXƒRƒA‚ğ‘‰Á‚³‚¹‚éB
+            //ï¿½Xï¿½Rï¿½Aï¿½ğ‘‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
             _text = score.GetComponent<Text>();
             now_score = int.Parse(_text.text);
 
@@ -35,6 +36,9 @@ public class enemy_death : MonoBehaviour
             if (hpStoper) HP = 1;
             if (HP <= 0)
             {
+                soundMaster sm = GM.GetComponent<soundMaster>();
+                sm.PlaySE(ac);
+
                 now_score += kill_point;
                 _text.text = now_score.ToString();
 
@@ -49,7 +53,7 @@ public class enemy_death : MonoBehaviour
                     isDrop = true;
                     Instantiate(item_1, transform.position, Quaternion.identity);
                 }
-                    //‚±‚Ìƒ^ƒCƒ~ƒ“ƒO‚Å‰¹‚ğÄ¶‚·‚é‚Ì‚àƒAƒŠ
+                    //ï¿½ï¿½ï¿½Ìƒ^ï¿½Cï¿½~ï¿½ï¿½ï¿½Oï¿½Å‰ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½Aï¿½ï¿½
 
                 Destroy(gameObject);
             }

@@ -228,6 +228,10 @@ MonoBehaviour:
   kill_point: 10
   now_score: 0
   HP: 200
+  audioClip: {fileID: 8300000, guid: dc276823361fe644c8af60071c4e651b, type: 3}
+  spellSe: {fileID: 8300000, guid: d33b9f220ddf0cb4d94b4ac40ad49c9a, type: 3}
+  damageSe: {fileID: 8300000, guid: 24f1591a5dbaab74495fcb42329e656b, type: 3}
+  beepSe: {fileID: 8300000, guid: fb98ba411c5796646a1aa51dbb5f5ff5, type: 3}
   nextHP: []
   Raw_eimPos:
   - {x: 2.33, y: 0.77}
@@ -341,9 +345,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 90ae525692fca804087109b9d7feae93, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8f594b23fe4535d4d9507c27a868af34, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
