@@ -9,6 +9,8 @@ public class player_bom : MonoBehaviour
     public GameObject bom , GM , bomUI;
     SpriteRenderer sr;
     Resurrection res;
+
+    [SerializeField]AudioClip ac;
     [SerializeField] Text bomText;
     bool _do = false;
 
@@ -24,6 +26,8 @@ public class player_bom : MonoBehaviour
     }
     IEnumerator bom_animetion()
     {
+
+        GM.GetComponent<soundMaster>().PlaySE(ac);
         _do = true;//�A�˖h�~�p
 
         res._bom--;

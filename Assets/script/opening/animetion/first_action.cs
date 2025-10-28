@@ -10,10 +10,13 @@ public class first_action : MonoBehaviour
     bool isPush , isCoroutine;
     RectTransform myRT,menuRT;
     int i = 0;
+    AudioSource ads;
+    public AudioClip ac;
     private void Start()
     {
         myRT = gameObject.GetComponent<RectTransform>();
         menuRT = menuFolder.GetComponent<RectTransform>();
+        ads = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -27,8 +30,8 @@ public class first_action : MonoBehaviour
         else
         {
             i++;
-            if (i >= 90) anykye_Obj.SetActive(false);//1.5•bŒo‚Á‚½‚ç”ñ•\Ž¦
-            if (i >= 120)//0.5•bŒã‚É•\Ž¦‚µAi‚ðƒŠƒZƒbƒg
+            if (i >= 90) anykye_Obj.SetActive(false);//1.5ï¿½bï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
+            if (i >= 120)//0.5ï¿½bï¿½ï¿½É•\ï¿½ï¿½ï¿½ï¿½ï¿½Aiï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
             {
                 anykye_Obj.SetActive(true);
                 i = 0;
@@ -41,14 +44,13 @@ public class first_action : MonoBehaviour
     {
         bool loop = false;
         isCoroutine = true;
+        ads.PlayOneShot(ac);
 
         while (loop == false)
         {
-            
+            myRT.anchoredPosition += golePos * titleMoveSpeed;//titleï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÍŒï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½nï¿½Ü‚é‚©ï¿½ï¿½AgolePosï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Ü‚Üƒxï¿½Nï¿½gï¿½ï¿½ï¿½É‚È‚ï¿½
 
-            myRT.anchoredPosition += golePos * titleMoveSpeed;//titleƒIƒuƒWƒFƒNƒg‚ÍŒ´“_‚©‚çŽn‚Ü‚é‚©‚çAgolePos‚ª‚»‚Ì‚Ü‚ÜƒxƒNƒgƒ‹‚É‚È‚é
-
-            menuRT.anchoredPosition -= new Vector2(menuMoveSpeed , 0);//XŽ²‚Ì‚ÝˆÚ“®BŠ„‚èØ‚ê‚é‚Ì‚ÅA‰º‚ÌIF•¶‚Å‹¸³‚·‚é•K—v‚ª–³‚¢
+            menuRT.anchoredPosition -= new Vector2(menuMoveSpeed , 0);//Xï¿½ï¿½ï¿½Ì‚ÝˆÚ“ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½Ø‚ï¿½ï¿½Ì‚ÅAï¿½ï¿½ï¿½ï¿½IFï¿½ï¿½ï¿½Å‹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
             if (myRT.anchoredPosition.y > golePos.y)
             {

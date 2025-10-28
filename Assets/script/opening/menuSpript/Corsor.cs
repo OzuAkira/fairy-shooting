@@ -8,8 +8,11 @@ public class Corsor : MonoBehaviour
     public Abs_menuElement[] menus;
     int index = 0 , oldIndex = 0;
     bool up, down;
+    AudioSource ads;
+    public AudioClip ac;
     private void Start()
     {
+        ads = GetComponent<AudioSource>();
         menuUpdate();
         gameObject.SetActive(false);
     }
@@ -35,6 +38,7 @@ public class Corsor : MonoBehaviour
         if(index < 0)index = menus.Length - 1;
         else if(index >= menus.Length)index = 0;
 
+        ads.PlayOneShot(ac);
         oldIndex = index;
         up = false;
         down = false;
