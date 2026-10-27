@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class childEim : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class childEim : MonoBehaviour
 
 
         Vector3 vect = transform.position - player.transform.position;
-        float angle = Mathf.Atan2(vect.y, vect.x) * Mathf.Rad2Deg;//ƒxƒNƒgƒ‹‚ğ‚à‚Æ‚ÉRotation‚É“ü‚ê‚é”’l‚ğŒvZ
+        float angle = Mathf.Atan2(vect.y, vect.x) * Mathf.Rad2Deg;//ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½Rotationï¿½É“ï¿½ï¿½ï¿½é”ï¿½lï¿½ï¿½ï¿½vï¿½Z
 
         transform.rotation = Quaternion.Euler(0, 0, angle + addRotation);
 
@@ -56,7 +55,7 @@ public class childEim : MonoBehaviour
                 {
                     movepos = Vector3.down * moveSpeed;
                 }
-                movepos = transform.position + transform.rotation * (Vector3.down * moveSpeed);//’e‚ÌŒü‚«‚É’¼i
+                movepos = transform.position + transform.rotation * (Vector3.down * moveSpeed);//ï¿½eï¿½ÌŒï¿½ï¿½ï¿½ï¿½É’ï¿½ï¿½i
                 rb.MovePosition(movepos);
             }
             yield return null;

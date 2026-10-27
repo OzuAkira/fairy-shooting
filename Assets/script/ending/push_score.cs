@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class push_score : MonoBehaviour
 {
@@ -41,7 +40,7 @@ public class push_score : MonoBehaviour
             goalPos = new Vector2(0,0);
             Resurrection res = resureection_Obj.GetComponent<Resurrection>();
             player_shot player_Shot = playerObj.GetComponent<player_shot>();
-            int p= res._player, b=res._bom , pp = player_Shot.my_power;//player‚Æbom‚ðŽæ“¾
+            int p= res._player, b=res._bom , pp = player_Shot.my_power;//playerï¿½ï¿½bomï¿½ï¿½ï¿½æ“¾
 
             yield return new WaitForSeconds(1.5f);
 
@@ -73,8 +72,8 @@ public class push_score : MonoBehaviour
             else
             {
                 i++;
-                if (i >= 90) anykye_Obj.SetActive(false);//1.5•bŒo‚Á‚½‚ç”ñ•\Ž¦
-                if (i >= 120)//0.5•bŒã‚É•\Ž¦‚µAi‚ðƒŠƒZƒbƒg
+                if (i >= 90) anykye_Obj.SetActive(false);//1.5ï¿½bï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
+                if (i >= 120)//0.5ï¿½bï¿½ï¿½É•\ï¿½ï¿½ï¿½ï¿½ï¿½Aiï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
                 {
                     anykye_Obj.SetActive(true);
                     i = 0;

@@ -5,23 +5,23 @@ using UnityEngine.InputSystem;
 
 public class player_move : MonoBehaviour
 {
-    Rigidbody2D rb ;//rb.velocity‚Å“®‚©‚·—p
-    public Vector2 axis;//OnMove‚Ì“ü—Í’l‚ğ•Û‘¶
+    Rigidbody2D rb ;//rb.velocityï¿½Å“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½p
+    public Vector2 axis;//OnMoveï¿½Ì“ï¿½ï¿½Í’lï¿½ï¿½Û‘ï¿½
 
     public float moveSpeed = 1;
     private float neutral_Speed , half_Speed;
 
 
     
-    private PlayerInput _playerInput;// “ü—Í‚ğó‚¯æ‚éPlayerInput
-    [SerializeField] private string _slowActionName = "Slow";// ƒAƒNƒVƒ‡ƒ“–¼
-    private InputAction _slowAction;// ƒAƒNƒVƒ‡ƒ“‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+    private PlayerInput _playerInput;// ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ó‚¯ï¿½ï¿½PlayerInput
+    [SerializeField] private string _slowActionName = "Slow";// ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private InputAction _slowAction;// ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌƒRï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½g
 
     GameObject child_Obj;
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _slowAction = _playerInput.actions[_slowActionName];// ƒAƒNƒVƒ‡ƒ“‚ğPlayerInput‚©‚çæ“¾
+        _slowAction = _playerInput.actions[_slowActionName];// ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PlayerInputï¿½ï¿½ï¿½ï¿½æ“¾
     }
 
     private void Start()
@@ -29,8 +29,8 @@ public class player_move : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         child_Obj = gameObject.transform.GetChild(0).gameObject;
 
-        neutral_Speed = moveSpeed;//”ñE’á‘¬‚ÌˆÚ“®‘¬“x
-        half_Speed = moveSpeed/2;//’á‘¬‚ÌˆÚ“®‘¬“x
+        neutral_Speed = moveSpeed;//ï¿½ï¿½Eï¿½á‘¬ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½x
+        half_Speed = moveSpeed/2;//ï¿½á‘¬ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½x
     }
     void OnMove(InputValue value)
     {
@@ -38,10 +38,10 @@ public class player_move : MonoBehaviour
     }
     private void Update()
     {
-        //’á‘¬ˆÚ“®‚Ìƒtƒ‰ƒOˆ—
+        //ï¿½á‘¬ï¿½Ú“ï¿½ï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½
         if (_slowAction != null)
         {
-            // UŒ‚ƒ{ƒ^ƒ“‚Ì‰Ÿ‰ºó‘Ôæ“¾
+            // ï¿½Uï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½Ôæ“¾
             var isPressed = _slowAction.IsPressed();
 
             if (isPressed)moveSpeed = half_Speed;
@@ -49,12 +49,12 @@ public class player_move : MonoBehaviour
         }
         else
         {
-            Debug.Log("_slowAction ‚ªNull‚Å‚·I");
+            Debug.Log("_slowAction ï¿½ï¿½Nullï¿½Å‚ï¿½ï¿½I");
             return;
         }
 
-        //ˆÚ“®ˆ—
-        rb.velocity = new Vector2(axis.x, axis.y) * moveSpeed;
+        //ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+        rb.linearVelocity = new Vector2(axis.x, axis.y) * moveSpeed;
         child_Obj.transform.position = gameObject.transform.position;
     }
 }
