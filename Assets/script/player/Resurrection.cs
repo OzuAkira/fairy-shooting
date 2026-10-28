@@ -70,7 +70,7 @@ public class Resurrection : MonoBehaviour
         if (_n < 0) return;
 
         List<string> TextList = new List<string> { baseText };
-        for (int i = 0; i < _n; i++)TextList.Add("♦");
+        for (int i = 0; i < _n; i++)TextList.Add("●");
 
         textObj.text = string.Join("", TextList);
     }
