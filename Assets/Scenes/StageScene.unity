@@ -1212,7 +1212,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Player : \u2666\u2666"
+  m_Text: 'Player : 2'
 --- !u!222 &771484637
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1733,7 +1733,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Bom   : \u2666\u2666"
+  m_Text: ' Bom   : 2'
 --- !u!222 &1163804209
 CanvasRenderer:
   m_ObjectHideFlags: 0
